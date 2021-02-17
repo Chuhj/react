@@ -17,12 +17,15 @@
         
         const onSubmitForm = (e) => {
           e.preventDefault();
-          if(parseInt(value) == first * second) {
-            setResult(`${value} 정답`);
+          if(parseInt(value) === first * second) {
+            setResult((prevResult) => {
+              console.log(prevResult);
+              return `${value} 정답`;
+            });
             setValue('');
             setFirst(Math.ceil(Math.random() * 9));
             setSecond(Math.ceil(Math.random() * 9));
-
+            
             inputRef.current.focus();
           }
           else{
