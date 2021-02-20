@@ -1,4 +1,5 @@
 const path = require('path');
+const { webpack } = require('webpack');
 
 module.exports = {
   mode: 'development', // production
@@ -19,8 +20,9 @@ module.exports = {
         presets: [
           ['@babel/preset-env', {
             targets: {
-              browsers: ['last 2 chrome versions'],
+              browsers: ['> 5% in KR'], // browserslist
             },
+            debug: true,
           }],
           '@babel/preset-react',
         ],
@@ -28,7 +30,9 @@ module.exports = {
       },
     }],
   },
-
+  plugins: [
+    new webpack.LoaderOptionsPlugin({ debug: true }),
+  ],
   output: {
     filename: 'app.js',
     path: path.join(__dirname, 'dist'),
