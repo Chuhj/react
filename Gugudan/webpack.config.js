@@ -1,5 +1,6 @@
 const path = require('path');
 const { webpack } = require('webpack');
+const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
   mode: 'development', // production
@@ -9,7 +10,8 @@ module.exports = {
   },
 
   entry: {
-    app: './client',
+    //app: './client',
+    app: ["./client"],
   },
 
   module: {
@@ -26,15 +28,23 @@ module.exports = {
           }],
           '@babel/preset-react',
         ],
-        plugins: [],
+        plugins: [
+          '@babel/plugin-proposal-class-properties',
+          'react-refresh/babel', // 옛날 문법으로 옮길 때 핫 리로딩 기능 추가
+        ],
       },
     }],
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({ debug: true }),
+    //new webpack.LoaderOptionsPlugin({ debug: true }),
+    new RefreshWebpackPlugin(),
   ],
   output: {
     filename: 'app.js',
     path: path.join(__dirname, 'dist'),
+  },
+  devServer: {
+    publicPath: '/dist/',
+    hot: true
   }
 };

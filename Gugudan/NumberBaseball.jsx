@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Try from './Try';
 
 function getNumbers() { // 숫자 4개 랜덤으로 뽑음
 
@@ -31,11 +32,13 @@ class NumberBaseball extends Component {
         <ul>
           {this.state.tries.map((v) => {
             return (
-              <li>{v}</li>
+              <Try v={v} />
             );
-          });}
+          })}
         </ul>
       </>
     );
   }
 }
+
+export default NumberBaseball;
