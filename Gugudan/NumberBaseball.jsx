@@ -5,7 +5,8 @@ function getNumbers() { // 숫자 4개 랜덤으로 뽑음
   const candidate = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const array = [];
   for (let i = 0; i < 4; i += 1) {
-    const chosen = candidate.splice(Math.floor(Math.random() * (9 - i)), i)[0];
+    const chosen = candidate.splice(Math.floor(Math.random() * (9 - i)), 1)[0];
+    console.log(chosen);
     array.push(chosen);
   }
   return array;
