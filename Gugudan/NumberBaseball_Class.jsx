@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import Try from './Try';
 
 function getNumbers() { // 숫자 4개 랜덤으로 뽑음
@@ -6,13 +6,12 @@ function getNumbers() { // 숫자 4개 랜덤으로 뽑음
   const array = [];
   for (let i = 0; i < 4; i += 1) {
     const chosen = candidate.splice(Math.floor(Math.random() * (9 - i)), 1)[0];
-    console.log(chosen);
     array.push(chosen);
   }
   return array;
 }
 
-class NumberBaseball extends Component {
+class NumberBaseballClass extends Component {
   state = {
     result: '',
     value: '',
@@ -35,6 +34,7 @@ class NumberBaseball extends Component {
         answer: getNumbers(),
         tries: [],
       });
+      this.inputRef.current.focus();
     }
     else {
       const answerArray = this.state.value.split('').map((v) => parseInt(v));
@@ -50,6 +50,7 @@ class NumberBaseball extends Component {
           answer: getNumbers(),
           tries: [],
         });
+        this.inputRef.current.focus();
       }
       else {
         for (let i = 0; i < 4; i += 1) {
@@ -62,27 +63,29 @@ class NumberBaseball extends Component {
         }
         this.setState((prevState) => {
           return {
-            tries: [...this.state.tries, {try: this.state.value, result: `${strike} 스트라이크 ${ball} 볼`}],
+            tries: [...prevState.tries, {try: this.state.value, result: `${strike} 스트라이크 ${ball} 볼`}],
             value: '',
           }
         });
+        this.inputRef.current.focus();
       }
     }
   };
 
   onChangeInput = (e) => {
-    console.log(this.state.answer);
     this.setState({
       value: e.target.value,
     });
   };
+
+  inputRef = createRef();
 
   render() {
     return (
       <>
         <h1>{this.state.result}</h1>
         <form onSubmit={this.onSubmitForm}>
-          <input maxLength={4} value={this.state.value} onChange={this.onChangeInput} type="text" />
+          <input ref={this.inputRef} maxLength={4} value={this.state.value} onChange={this.onChangeInput} type="text" />
         </form>
         <div>시도: {this.state.tries.length}</div>
         <ul>
@@ -97,4 +100,4 @@ class NumberBaseball extends Component {
   }
 }
 
-export default NumberBaseball;
+export default NumberBaseballClass;
