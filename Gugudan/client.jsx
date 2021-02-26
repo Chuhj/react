@@ -2,6 +2,6 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 //const NumberBaseball = require('./NumberBaseball');
-import NumberBaseballClass from './NumberBaseball_Class'
+import ResponseCheck from './ResponseCheck'
 
-ReactDOM.render(<NumberBaseballClass/>, document.querySelector('#root'));
+ReactDOM.render(<ResponseCheck />, document.querySelector('#root'));
