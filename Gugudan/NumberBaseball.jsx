@@ -8,6 +8,7 @@ function getNumbers() { // 숫자 4개 랜덤으로 뽑음
     const chosen = candidate.splice(Math.floor(Math.random() * (9 - i)), 1)[0];
     array.push(chosen);
   }
+  console.log(array);
   return array;
 }
 
