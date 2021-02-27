@@ -8,6 +8,8 @@ class ResponseCheck extends Component {
   };
 
   timeout;
+  startTime;
+  endTime;
 
   onClickScreen = () => {
     const { state, message, result } = this.state;
@@ -17,6 +19,7 @@ class ResponseCheck extends Component {
         message: '초록색이 되면 클릭하세요',
       });
       this.timeout = setTimeout(() => {
+        this.startTime = new Date();
         this.setState({
           state: 'now',
           message: '지금 클릭',
@@ -25,15 +28,22 @@ class ResponseCheck extends Component {
     }
     else if (state === 'ready') { // 성급하게 클릭
       clearTimeout(this.timeout);
-    }
-    else if (state === 'now') { // 반응속도 체크
       this.setState({
         state: 'waiting',
-        message: '클릭해서 시작하세요',
-        result: [],
+        message: '빨리누름',
       })
     }
-  }
+    else if (state === 'now') { // 반응속도 체크
+      this.endTime = new Date();
+      this.setState((prevState) => {
+        return {
+          state: 'waiting',
+          message: '클릭해서 시작하세요',
+          result: [...prevState.result, this.endTime - this.startTime],
+        };                                   
+      });
+    }
+  };
 
   renderAverage = () => {
     const { result } = this.state;
