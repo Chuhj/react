@@ -2,6 +2,6 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 //const NumberBaseball = require('./NumberBaseball');
-import ResponseCheck from './ResponseCheckClass'
+import RSP from './RSP'
 
-ReactDOM.render(<ResponseCheck />, document.querySelector('#root'));
+ReactDOM.render(<RSP />, document.querySelector('#root'));
