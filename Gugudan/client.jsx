@@ -2,6 +2,6 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 //const NumberBaseball = require('./NumberBaseball');
-import RSP from './RSP'
+import Lotto from './Lotto'
 
-ReactDOM.render(<RSP />, document.querySelector('#root'));
+ReactDOM.render(<Lotto />, document.querySelector('#root'));
