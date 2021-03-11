@@ -1,15 +1,15 @@
-const path = require("path");
+const path = require('path');
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
-  name: "mine",
-  mode: "development", //production
-  devtool: "eval",
+  mode: 'development', // production
+  devtool: 'eval', // hidden-source-map
   resolve: {
-    extensions: [".js", ".jsx"], // entry의 파일확장자 생략가능하게 해줌
+    extensions: ['.js', '.jsx']
   },
+
   entry: {
-    // 입력
+    //app: './client',
     app: ["./client"],
   },
 
@@ -25,7 +25,7 @@ module.exports = {
             },
             debug: true,
           }],
-          '@babel/preset-react'
+          '@babel/preset-react',
         ],
         plugins: [
           '@babel/plugin-proposal-class-properties',
@@ -34,15 +34,13 @@ module.exports = {
       },
     }],
   },
-
   plugins: [
-    new RefreshWebpackPlugin()
+    //new webpack.LoaderOptionsPlugin({ debug: true }),
+    new RefreshWebpackPlugin(),
   ],
-
   output: {
-    // 출력
-    path: path.join(__dirname, "dist"),
-    filename: "app.js",
+    filename: 'app.js',
+    path: path.join(__dirname, 'dist'),
     publicPath: '/dist/',
   },
   devServer: {
