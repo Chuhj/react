@@ -15,7 +15,7 @@ export const CODE = {
 
 export const TableContext = createContext({
   tableData: [],
-  dispatch: () => {},
+  dispatch: () => { },
   halted: true,
 });
 
@@ -38,18 +38,18 @@ const plantMine = (row, cell, mine) => {
   });
   const shuffle = [];
   while (shuffle.length < mine) {
-    const chosen = candidate.splice(Math.floor(Math.random() * candidate.length),1)[0];
+    const chosen = candidate.splice(Math.floor(Math.random() * candidate.length), 1)[0];
     shuffle.push(chosen);
   }
   const data = []
   for (let i = 0; i < row; i++) {
     data.push([]);
-    for(let j = 0; j < cell; j++) {
+    for (let j = 0; j < cell; j++) {
       data[i].push(CODE.NORMAL);
     }
   }
 
-  for(let k = 0; k < shuffle.length; k++) {
+  for (let k = 0; k < shuffle.length; k++) {
     const ver = Math.floor(shuffle[k] / cell);
     const hor = shuffle[k] % cell;
     data[ver][hor] = CODE.MINE;
@@ -67,7 +67,7 @@ export const INCREMENT_TIMER = 'INCREMENT_TIMER';
 
 const reducer = (state, action) => {
   let tableData = [...state.tableData];
-  switch(action.type) {
+  switch (action.type) {
     case START_GAME:
       return {
         ...state,
@@ -79,6 +79,7 @@ const reducer = (state, action) => {
         openCount: 0,
         tableData: plantMine(action.row, action.cell, action.mine),
         halted: false,
+        timer: 0,
       };
     case OPEN_CELL:
       tableData = [...state.tableData];
@@ -110,7 +111,6 @@ const reducer = (state, action) => {
         const count = around.filter((v) => [CODE.MINE, CODE.FLAG_MINE, CODE.QUESTION_MINE].includes(v)).length;
         tableData[row][cell] = count;
         openCount++;
-        console.log(openCount);
         if (count === 0) {
           const near = [];
           if (row - 1 > -1) {
@@ -127,7 +127,7 @@ const reducer = (state, action) => {
           }
           near.forEach((v) => {
             if (tableData[v[0]][v[1]] === CODE.NORMAL) {
-              checkAround(v[0], v[1]); 
+              checkAround(v[0], v[1]);
             }
           });
         }
@@ -135,7 +135,7 @@ const reducer = (state, action) => {
       checkAround(action.row, action.cell);
       let halted = false;
       let result = '';
-      if (state.openCount + openCount === state.data.row * state.data.cell - state.data.mine){
+      if (state.openCount + openCount === state.data.row * state.data.cell - state.data.mine) {
         console.log('win');
         halted = true;
         result = `${state.timer}초 만에 승리!`;
@@ -146,6 +146,7 @@ const reducer = (state, action) => {
         halted,
         openCount: state.openCount + openCount,
         result,
+        timer: state.timer,
       };
     case CLICK_MINE:
       tableData = [...state.tableData];
@@ -155,7 +156,6 @@ const reducer = (state, action) => {
         ...state,
         tableData,
         halted: true,
-
       };
     case FLAG_CELL:
       tableData = [...state.tableData];
@@ -197,7 +197,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         timer: state.timer + 1,
-      }
+      };
     }
     default:
       return state;
@@ -211,14 +211,16 @@ const MineSearch = () => {
 
   useEffect(() => {
     let timer;
+    console.log('start');
     if (halted === false) {
       timer = setInterval(() => {
         dispatch({ type: INCREMENT_TIMER });
       }, 1000);
     }
-    
+    console.log('end!');
     return () => {
-      clearInterval();
+      console.log('return !');
+      clearInterval(timer);
     }
   }, [halted]);
 
