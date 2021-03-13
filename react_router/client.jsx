@@ -1,6 +1,6 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-import MineSearch from './MineSearch'; // module.exports 한 것
+import Games from './Games';
 
-ReactDOM.render(<MineSearch/>, document.querySelector('#root'));
+ReactDOM.render(<Games />, document.querySelector('#root'));
