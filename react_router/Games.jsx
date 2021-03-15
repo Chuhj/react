@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, HashRouter, Route, Link } from 'react-router-dom';
-import WordRelay from '../WordRelay/WordRelayClass';
-import Lotto from '../lecture/LottoClass';
+
 import GameMatcher from './GameMatcher'
 
 const Games = () => {
@@ -15,8 +14,6 @@ const Games = () => {
         <Link to="/game/index">게임매쳐</Link>
       </div>
       <div>
-        <Route path="/word-relay" component={WordRelay} />
-        <Route path="/lotto-generator" component={Lotto} />
         <Route path="/game/:name" component={GameMatcher} />
       </div>
     </BrowserRouter>
