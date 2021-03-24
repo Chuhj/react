@@ -7,7 +7,7 @@ const Games = () => {
   return (
     <BrowserRouter>
       <div>
-        <Link to="/game/word-relay">끝말잇기</Link>
+        <Link to="/game/word-relay?a=1234&name=chu">끝말잇기</Link>
         &nbsp;
         <Link to="/game/lotto-generator">로또</Link>
         &nbsp;
